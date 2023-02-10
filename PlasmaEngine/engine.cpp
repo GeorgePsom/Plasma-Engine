@@ -1,6 +1,7 @@
 #include "engine.h"
+#include "instance.h"
 
-#include <iostream>
+
 
 Engine::Engine()
 {
@@ -8,6 +9,13 @@ Engine::Engine()
 		std::cout << "Making a graphics engine\n";
 
 	build_glfw_window();
+
+	make_instance();
+}
+
+void Engine::make_instance()
+{
+	instance = vkInit::make_instance(debugMode, "Plasma Engine");
 }
 
 void Engine::build_glfw_window()
