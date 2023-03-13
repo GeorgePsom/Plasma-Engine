@@ -1,2 +1,2 @@
 # Plasma-Engine
-Vulkan Engine for educational purposes
+Vulkan Engine for educational and experimental purposes
