@@ -17,6 +17,9 @@
 # Mono auto generated files
 mono_crash.*
 
+#CMAKE Build
+[Bb]uild/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
