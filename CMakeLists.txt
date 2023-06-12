@@ -15,27 +15,28 @@ include_directories(${VULKAN_SDK_PATH}/Include)
 include_directories(source)
 
 link_directories(${VULKAN_SDK_PATH}/Lib)
-
-
-add_executable(PlasmaEngine "source/main.cpp" "source/Application.h" "source/Application.cpp" "source/vulkan_api/Instance.h" "source/pch.h" "source/vulkan_api/Instance.cpp" "source/pch.cpp")
-
-set(SOURCE
-source/main.cpp
-source/Application.cpp
-#source/vulkan_api/Instance.cpp
-
+set (SOURCE
+	source/main.cpp
+	source/Application.cpp
+	source/vulkan_api/Instance.cpp
+	source/vulkan_api/Debugger.cpp
 )
 
-set(SOURCE_VULKAN_API
-source/vulkan_api/Instance.cpp)
-set(PCH_HEADER pch.h)
-set(PCH_HEADER_NOT_SOURCE ../pch.h)
+set (HEADER
+	source/Application.h
+	source/vulkan_api/Instance.h
+	source/vulkan_api/Debugger.h
+)
 
+add_executable(PlasmaEngine "source/pch.h"  "source/pch.cpp" ${HEADER} ${SOURCE})
+
+
+set(PCH_HEADER pch.h)
 set(PCH_SOURCE source/pch.cpp)
 
 set_source_files_properties(${PCH_SOURCE} PROPERTIES COMPILE_FLAGS "/Yc${PCH_HEADER}")
 set_source_files_properties(${SOURCE} PROPERTIES COMPILE_FLAGS "/Yu${PCH_HEADER}")
-set_source_files_properties(${SOURCE_VULKAN_API} PROPERTIES COMPILE_FLAGS "/Yu${PCH_HEADER}")
+#set_source_files_properties(${SOURCE_VULKAN_API} PROPERTIES COMPILE_FLAGS "/Yu${PCH_HEADER}")
 target_link_libraries(PlasmaEngine glfw)
 if(WIN32)
 	target_link_libraries(PlasmaEngine ${VULKAN_SDK_PATH}/Lib/vulkan-1.lib)

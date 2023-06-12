@@ -3,7 +3,7 @@
 class Instance
 {
 public:
-	Instance();
+	Instance(Debugger& debugger);
 	~Instance() { Destroy(); }
 	void PrintSupportedExtensions();
 	void FindSupportedExtensions();
@@ -12,4 +12,5 @@ private:
 	VkInstance instance;
 	std::vector<const char*> requiredExtensions;
 	std::vector<VkExtensionProperties> supportedExtensions;
+	Debugger* debugger;
 };

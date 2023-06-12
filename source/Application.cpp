@@ -39,6 +39,9 @@ void Application::Destroy()
 
 void Application::InitVulkan()
 {
-	m_pInstance = new Instance();
+	if (debug)
+		m_Debugger = new Debugger(debug);
+	m_pInstance = new Instance(*m_Debugger);
+	
 	m_pInstance->PrintSupportedExtensions();
 }

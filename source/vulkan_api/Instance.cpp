@@ -2,7 +2,7 @@
 
 
 
-Instance::Instance()
+Instance::Instance(Debugger& debug)
 {
 	VkApplicationInfo appInfo{};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -28,10 +28,25 @@ Instance::Instance()
 
 	requiredExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
 
+
+	// Check for validation layers if debug on
+	debugger = &debug;
+	if (debugger != nullptr && debugger->CheckValidationLayerSupport())
+	{
+		throw::std::runtime_error("Validation layers requested, but not available!");
+	}
+	if (debugger != nullptr && debugger->GetValidationFlag())
+	{
+		createInfo.enabledLayerCount = static_cast<uint32_t>(debugger->GetValidationLayers()->size());
+		createInfo.ppEnabledLayerNames = debugger->GetValidationLayers()->data();
+	}
+	else
+	{
+		createInfo.enabledLayerCount = 0;
+	}
 	createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 	createInfo.enabledExtensionCount = (uint32_t)requiredExtensions.size();
 	createInfo.ppEnabledExtensionNames = requiredExtensions.data();
-	createInfo.enabledLayerCount = 0;
 
 	if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS)
 	{
