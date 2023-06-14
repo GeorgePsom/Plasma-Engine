@@ -32,6 +32,7 @@ void Application::MainLoop()
 
 void Application::Destroy()
 {
+	/*m_Debugger->DestroyDebugUtilsMessengerEXT(m_pInstance->GetInstance(), m_Debugger->debugMessenger, nullptr);*/
 	m_pInstance->Destroy();
 	glfwDestroyWindow(m_pWindow);
 	glfwTerminate();
@@ -40,8 +41,14 @@ void Application::Destroy()
 void Application::InitVulkan()
 {
 	if (debug)
+	{
 		m_Debugger = new Debugger(debug);
+	}
+		
 	m_pInstance = new Instance(*m_Debugger);
+
+	/*m_Debugger->SetupDebugMessenger(m_pInstance->GetInstance());*/
+	
 	
 	m_pInstance->PrintSupportedExtensions();
 }
