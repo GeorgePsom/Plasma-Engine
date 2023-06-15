@@ -11,4 +11,5 @@
 #include "vulkan_api/Debugger.h"
 #include  "vulkan_api/Instance.h"
 #include "vulkan_api/PhysicalDevice.h"
+#include "vulkan_api/Device.h"
 #include "Application.h"

@@ -32,6 +32,7 @@ void Application::MainLoop()
 
 void Application::Destroy()
 {
+	m_pDevice->Destroy();
 	/*m_Debugger->DestroyDebugUtilsMessengerEXT(m_pInstance->GetInstance(), m_Debugger->debugMessenger, nullptr);*/
 	m_pInstance->Destroy();
 	glfwDestroyWindow(m_pWindow);
@@ -50,5 +51,6 @@ void Application::InitVulkan()
 	/*m_Debugger->SetupDebugMessenger(m_pInstance->GetInstance());*/
 	
 	m_pPhysicalDevice = new PhysicalDevice(m_pInstance->GetInstance());
+	m_pDevice = new Device(*m_pPhysicalDevice, debug);
 	m_pInstance->PrintSupportedExtensions();
 }

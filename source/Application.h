@@ -22,6 +22,7 @@ private:
 	Instance* m_pInstance;
 	Debugger* m_Debugger = nullptr;
 	PhysicalDevice* m_pPhysicalDevice;
+	Device* m_pDevice;
 	bool m_debugMode;
 
 

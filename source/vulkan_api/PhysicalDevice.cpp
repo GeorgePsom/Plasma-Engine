@@ -30,7 +30,7 @@ bool PhysicalDevice::IsDeviceSuitable(const VkPhysicalDevice& device)
 	return indices.isComplete();
 }
 
-PhysicalDevice::QueueFamilyIndices PhysicalDevice::FindQueueFamilies(const VkPhysicalDevice& device)
+QueueFamilyIndices PhysicalDevice::FindQueueFamilies(const VkPhysicalDevice& device) const
 {
 	QueueFamilyIndices indices;
 	uint32_t queueFamilyCount = 0;

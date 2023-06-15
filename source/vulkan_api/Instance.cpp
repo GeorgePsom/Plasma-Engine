@@ -1,8 +1,5 @@
 #include "pch.h"
 
-const std::vector<const char*> validationLayers = {
-	"VK_LAYER_KHRONOS_validation"
-};
 
 #ifdef NDEBUG
 const bool enableValidationLayers = false;
@@ -147,6 +144,7 @@ void Instance::PrintSupportedExtensions()
 
 void Instance::Destroy()
 {
+	// Get an error when destroying the debugUtilsMessenger.
 	/*if (debugger->GetValidationFlag())
 		DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);*/
 	vkDestroyInstance(instance, nullptr);

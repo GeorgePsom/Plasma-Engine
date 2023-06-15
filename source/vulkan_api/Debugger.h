@@ -1,5 +1,11 @@
 #pragma once
 
+
+const std::vector<const char*> validationLayers =
+{
+	"VK_LAYER_KHRONOS_validation"
+};
+
 class Debugger
 {
 public:
@@ -8,7 +14,7 @@ public:
 	bool CheckValidationLayerSupport();
 	void AddDebugExtension(std::vector<const char*>& extensions);
 	inline bool GetValidationFlag() { return enableValidationLayers; }
-	const std::vector<const char*>* GetValidationLayers()
+	const std::vector<const char*>* GetValidationLayers() const
 	{
 		return &validationLayers;
 	}
