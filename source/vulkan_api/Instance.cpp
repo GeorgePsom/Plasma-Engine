@@ -86,14 +86,14 @@ Instance::Instance(Debugger& debug)
 		requiredExtensions.emplace_back(glfwExtensions[i]);
 	}
 
-	requiredExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+	//requiredExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
 	
 	if(debugger != nullptr)
 		debugger->AddDebugExtension(requiredExtensions);
 
 	// Check for validation layers if debug on
 	
-	if (debugger != nullptr && debugger->CheckValidationLayerSupport())
+	if (debugger != nullptr && !debugger->CheckValidationLayerSupport())
 	{
 		throw::std::runtime_error("Validation layers requested, but not available!");
 	}
@@ -112,14 +112,14 @@ Instance::Instance(Debugger& debug)
 	}
 
 	
-	createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+	//createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 	createInfo.enabledExtensionCount = (uint32_t)requiredExtensions.size();
 	createInfo.ppEnabledExtensionNames = requiredExtensions.data();
-
-	if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS)
+	bool cond = vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS;
+	/*if(cond)
 	{
 		throw::std::runtime_error("Failed to create Instance!");
-	}
+	}*/
 }
 
 void Instance::FindSupportedExtensions()
@@ -147,5 +147,7 @@ void Instance::PrintSupportedExtensions()
 
 void Instance::Destroy()
 {
+	/*if (debugger->GetValidationFlag())
+		DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);*/
 	vkDestroyInstance(instance, nullptr);
 }

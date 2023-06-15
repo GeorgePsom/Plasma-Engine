@@ -49,6 +49,6 @@ void Application::InitVulkan()
 
 	/*m_Debugger->SetupDebugMessenger(m_pInstance->GetInstance());*/
 	
-	
+	m_pPhysicalDevice = new PhysicalDevice(m_pInstance->GetInstance());
 	m_pInstance->PrintSupportedExtensions();
 }

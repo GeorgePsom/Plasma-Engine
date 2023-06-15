@@ -1,8 +1,8 @@
 #pragma once
 #ifdef NDEBUG
-	const bool debug = true;
+const bool debug = false;
 #else
-	const bool debug = false;
+const bool debug = true;
 #endif
 class Application
 {
@@ -21,6 +21,7 @@ private:
 	GLFWwindow* m_pWindow;
 	Instance* m_pInstance;
 	Debugger* m_Debugger = nullptr;
+	PhysicalDevice* m_pPhysicalDevice;
 	bool m_debugMode;
 
 
