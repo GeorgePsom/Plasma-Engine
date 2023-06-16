@@ -23,6 +23,8 @@ set (SOURCE
 	source/vulkan_api/Debugger.cpp
 	source/vulkan_api/PhysicalDevice.cpp
 	source/vulkan_api/Device.cpp
+	source/platform/Surface.cpp
+	source/platform/windows/WindowSurface.cpp
 )
 
 set (HEADER
@@ -31,6 +33,9 @@ set (HEADER
 	source/vulkan_api/Debugger.h
 	source/vulkan_api/PhysicalDevice.h
 	source/vulkan_api/Device.h
+	source/platform/Surface.h
+	source/platform/windows/WindowSurface.h
+
 )
 
 add_executable(PlasmaEngine "source/pch.h"  "source/pch.cpp" ${HEADER} ${SOURCE})

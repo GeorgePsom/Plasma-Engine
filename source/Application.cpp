@@ -34,6 +34,7 @@ void Application::Destroy()
 {
 	m_pDevice->Destroy();
 	/*m_Debugger->DestroyDebugUtilsMessengerEXT(m_pInstance->GetInstance(), m_Debugger->debugMessenger, nullptr);*/
+	m_pSurface->Destroy(m_pInstance->GetInstance());
 	m_pInstance->Destroy();
 	glfwDestroyWindow(m_pWindow);
 	glfwTerminate();
@@ -48,9 +49,13 @@ void Application::InitVulkan()
 		
 	m_pInstance = new Instance(*m_Debugger);
 
+	// TODO: include more platforms.
+#ifdef _WIN32
+	m_pSurface = new WindowSurface(*m_pWindow, m_pInstance->GetInstance());
+#endif
 	/*m_Debugger->SetupDebugMessenger(m_pInstance->GetInstance());*/
 	
-	m_pPhysicalDevice = new PhysicalDevice(m_pInstance->GetInstance());
+	m_pPhysicalDevice = new PhysicalDevice(m_pInstance->GetInstance(), *m_pSurface->GetSurface());
 	m_pDevice = new Device(*m_pPhysicalDevice, debug);
 	m_pInstance->PrintSupportedExtensions();
 }

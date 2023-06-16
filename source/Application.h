@@ -20,6 +20,7 @@ private:
 	uint32_t  m_width, m_height;
 	GLFWwindow* m_pWindow;
 	Instance* m_pInstance;
+	Surface* m_pSurface = nullptr;
 	Debugger* m_Debugger = nullptr;
 	PhysicalDevice* m_pPhysicalDevice;
 	Device* m_pDevice;

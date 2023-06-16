@@ -1,7 +1,8 @@
 #include "pch.h"
 
-PhysicalDevice::PhysicalDevice(const VkInstance& instance)
+PhysicalDevice::PhysicalDevice(const VkInstance& instance, VkSurfaceKHR& surf)
 {
+	surface = &surf;
 	uint32_t deviceCount = 0;
 	vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
 
@@ -45,6 +46,12 @@ QueueFamilyIndices PhysicalDevice::FindQueueFamilies(const VkPhysicalDevice& dev
 	{
 		if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
 			indices.graphicsFamily = i;
+		
+		VkBool32 presentSupport = false;
+		vkGetPhysicalDeviceSurfaceSupportKHR(device, i, *surface, &presentSupport);
+		if (presentSupport)
+			indices.presentFamily = i;
+
 		if (indices.isComplete())
 			break;
 		i++;

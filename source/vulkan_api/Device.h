@@ -10,4 +10,5 @@ private:
 
 	VkDevice device;
 	VkQueue graphicsQueue;
+	VkQueue presentQueue;
 };
