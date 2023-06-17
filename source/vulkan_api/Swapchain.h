@@ -10,8 +10,13 @@ private:
 	VkSurfaceFormatKHR ChooseSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 	VkPresentModeKHR ChoosePresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 	VkExtent2D ChooseExtent(const VkSurfaceCapabilitiesKHR& capabilities, GLFWwindow& window);
+	void CreateImageViews(const VkDevice& device);
 
 	VkSwapchainKHR swapChain;
+	std::vector<VkImage> images;
+	VkFormat imageFormat;
+	VkExtent2D extent;
+	std::vector<VkImageView> imageViews;
 	// References of objects from other classes that are required
 	/*SwapChainSupportDetails* swapChainSupportDetails;
 	QueueFamilyIndices* indices;

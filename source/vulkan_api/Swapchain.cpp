@@ -60,10 +60,20 @@ Swapchain::Swapchain(GLFWwindow& win, const PhysicalDevice& physicalDevice, cons
 		throw std::runtime_error("failed to create swap chain!");
 	}
 
+	vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
+	images.resize(imageCount);
+	vkGetSwapchainImagesKHR(device, swapChain, &imageCount, images.data());
+	imageFormat = surfaceFormat.format;
+	this->extent = extent;
+
+	CreateImageViews(device);
+
 }
 
 void Swapchain::Destroy(const VkDevice& device)
 {
+	for (size_t i = 0; i < imageViews.size(); i++)
+		vkDestroyImageView(device, imageViews[i], nullptr);
 	vkDestroySwapchainKHR(device, swapChain, nullptr);
 }
 
@@ -114,4 +124,31 @@ VkExtent2D Swapchain::ChooseExtent(const VkSurfaceCapabilitiesKHR& capabilities,
 		actualExtent.height = std::clamp(actualExtent.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
 		return actualExtent;
 	}
+}
+
+void Swapchain::CreateImageViews(const VkDevice& device)
+{
+	imageViews.resize(images.size());
+
+	for (size_t i = 0; i < imageViews.size(); i++)
+	{
+		VkImageViewCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+		createInfo.image = images[i];
+		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		createInfo.format = imageFormat;
+		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		createInfo.subresourceRange.baseMipLevel = 0;
+		createInfo.subresourceRange.levelCount = 1;
+		createInfo.subresourceRange.baseArrayLayer = 0;
+		createInfo.subresourceRange.layerCount = 1; // If we had 3D stereoscopic view we would create multiple levels.
+
+		if (vkCreateImageView(device, &createInfo, nullptr, &imageViews[i]) != VK_SUCCESS)
+			throw std::runtime_error(" Failed to create swapchain image view!");
+	}
+
 }

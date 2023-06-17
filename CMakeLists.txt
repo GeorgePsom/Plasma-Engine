@@ -3,8 +3,8 @@ project(PlasmaEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 # Specify the Vulkan SDK path
-set(VULKAN_SDK_PATH "D:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
-#set(VULKAN_SDK_PATH "C:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
+#set(VULKAN_SDK_PATH "D:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
+set(VULKAN_SDK_PATH "C:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
 
 
 add_subdirectory(libraries/glfw)
