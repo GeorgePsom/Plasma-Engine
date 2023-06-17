@@ -3,8 +3,8 @@ project(PlasmaEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 # Specify the Vulkan SDK path
-set(VULKAN_SDK_PATH "D:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
-#set(VULKAN_SDK_PATH "C:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
+#set(VULKAN_SDK_PATH "D:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
+set(VULKAN_SDK_PATH "C:/VulkanSDK/1.3.250.0" CACHE STRING "Path to the Vulkan SDK")
 
 
 add_subdirectory(libraries/glfw)
@@ -25,6 +25,7 @@ set (SOURCE
 	source/vulkan_api/Device.cpp
 	source/platform/Surface.cpp
 	source/platform/windows/WindowSurface.cpp
+	source/vulkan_api/Swapchain.cpp
 )
 
 set (HEADER
@@ -35,6 +36,7 @@ set (HEADER
 	source/vulkan_api/Device.h
 	source/platform/Surface.h
 	source/platform/windows/WindowSurface.h
+	source/vulkan_api/Swapchain.h
 
 )
 

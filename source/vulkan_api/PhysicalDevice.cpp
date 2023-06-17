@@ -28,8 +28,59 @@ PhysicalDevice::PhysicalDevice(const VkInstance& instance, VkSurfaceKHR& surf)
 bool PhysicalDevice::IsDeviceSuitable(const VkPhysicalDevice& device)
 {
 	QueueFamilyIndices indices = FindQueueFamilies(device);
-	return indices.isComplete();
+	
+	bool extensionsSupported = CheckDeviceExtensionSupport(device);
+	bool swapChainAdequate = false;
+	if (extensionsSupported)
+	{
+		swapChainSupportDetails = QuerySwapChainSupport(device);
+		swapChainAdequate = !swapChainSupportDetails.formats.empty() && !swapChainSupportDetails.presentModes.empty();
+	}
+
+	 
+	return indices.isComplete() && extensionsSupported && swapChainAdequate;
 }
+
+bool PhysicalDevice::CheckDeviceExtensionSupport(const VkPhysicalDevice& device)
+{
+	uint32_t extensionCount;
+	vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+	std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+	vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
+	std::set<std::string> requiredExtensions(deviceExtensions.begin(), deviceExtensions.end());
+
+	for (const auto& extension : availableExtensions)
+	{
+		requiredExtensions.erase(extension.extensionName);
+	}
+	return requiredExtensions.empty();
+}
+
+SwapChainSupportDetails PhysicalDevice::QuerySwapChainSupport(const VkPhysicalDevice& device)
+{
+	SwapChainSupportDetails details;
+
+	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, *surface, &details.capabilities);
+
+	uint32_t formatCount;
+	vkGetPhysicalDeviceSurfaceFormatsKHR(device, *surface, &formatCount, nullptr);
+
+	if (formatCount != 0)
+	{
+		details.formats.resize(formatCount);
+		vkGetPhysicalDeviceSurfaceFormatsKHR(device, *surface, &formatCount, details.formats.data());
+	}
+
+	uint32_t presentModeCount;
+	vkGetPhysicalDeviceSurfacePresentModesKHR(device, *surface, &presentModeCount, nullptr);
+	if (presentModeCount != 0)
+	{
+		details.presentModes.resize(presentModeCount);
+		vkGetPhysicalDeviceSurfacePresentModesKHR(device, *surface, &presentModeCount, details.presentModes.data());
+	}
+	return details;
+}
+
 
 QueueFamilyIndices PhysicalDevice::FindQueueFamilies(const VkPhysicalDevice& device) const
 {

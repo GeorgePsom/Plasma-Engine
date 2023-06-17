@@ -38,6 +38,9 @@ Device::Device(const PhysicalDevice& physicalDevice, bool debug)
 	else
 		createInfo.enabledLayerCount = 0;
 
+	createInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
+	createInfo.ppEnabledExtensionNames = deviceExtensions.data();
+
 	if (vkCreateDevice(physicalDevice.GetDevice(), &createInfo, nullptr, &device) != VK_SUCCESS)
 		throw std::runtime_error("Failed to create logical deice");
 

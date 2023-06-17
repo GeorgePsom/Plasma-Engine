@@ -3,6 +3,7 @@
 #include <iostream>
 #if _WIN32
 	#define VK_USE_PLATFORM_WIN32_KHR
+	#define NOMINMAX
 #endif
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -13,6 +14,9 @@
 #include <vector>
 #include <optional>
 #include <set>
+#include <cstdint> // Necessary for uint32_t
+#include <limits> // Necessary for std::numeric_limits
+#include <algorithm> // Necessary for std::clamp
 
 // Include core headers
 #include "vulkan_api/Debugger.h"
@@ -21,4 +25,5 @@
 #include "platform/windows/WindowSurface.h"
 #include "vulkan_api/PhysicalDevice.h"
 #include "vulkan_api/Device.h"
+#include "vulkan_api/Swapchain.h"
 #include "Application.h"
