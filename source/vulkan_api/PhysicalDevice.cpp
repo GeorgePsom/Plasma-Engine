@@ -84,7 +84,8 @@ SwapChainSupportDetails PhysicalDevice::QuerySwapChainSupport(const VkPhysicalDe
 
 QueueFamilyIndices PhysicalDevice::FindQueueFamilies(const VkPhysicalDevice& device) const
 {
-	QueueFamilyIndices indices;
+	QueueFamilyIndices  indices;
+	;
 	uint32_t queueFamilyCount = 0;
 	
 	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
@@ -107,6 +108,6 @@ QueueFamilyIndices PhysicalDevice::FindQueueFamilies(const VkPhysicalDevice& dev
 			break;
 		i++;
 	}
-
+	//familyIndices = indices;
 	return indices;
 }

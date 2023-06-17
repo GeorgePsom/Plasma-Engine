@@ -24,6 +24,7 @@ private:
 	Debugger* m_Debugger = nullptr;
 	PhysicalDevice* m_pPhysicalDevice;
 	Device* m_pDevice;
+	Swapchain* m_pSwapchain;
 	bool m_debugMode;
 
 

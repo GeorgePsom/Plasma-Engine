@@ -1,5 +1,72 @@
 #include "pch.h"
 
+Swapchain::Swapchain(GLFWwindow& win, const PhysicalDevice& physicalDevice, const VkDevice& device, const VkSurfaceKHR& surface)
+{
+	SwapChainSupportDetails swapchainDetails = *(physicalDevice.GetSwapChainSupportDetails());
+	QueueFamilyIndices indices = (physicalDevice.FindQueueFamilies(physicalDevice.GetDevice()));
+	VkSurfaceFormatKHR surfaceFormat = ChooseSurfaceFormat(swapchainDetails.formats);
+	VkPresentModeKHR presentMode = ChoosePresentMode(swapchainDetails.presentModes);
+	VkExtent2D extent = ChooseExtent(swapchainDetails.capabilities, win);
+
+	uint32_t imageCount = swapchainDetails.capabilities.minImageCount + 1;
+
+	if (swapchainDetails.capabilities.maxImageCount > 0 && imageCount > swapchainDetails.capabilities.maxImageCount)
+		imageCount = swapchainDetails.capabilities.maxImageCount;
+
+	VkSwapchainCreateInfoKHR createInfo{};
+	createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
+	createInfo.surface = surface;
+	createInfo.minImageCount = imageCount;
+	createInfo.imageFormat = surfaceFormat.format;
+	createInfo.imageColorSpace = surfaceFormat.colorSpace;
+	createInfo.imageExtent = extent;
+	createInfo.imageArrayLayers = 1; // Always 1, unless we are developing a 3D stereoscopic application.
+	// We will render straight into them. If we are using post-processing then it should be VK_IMAGE_USAGE_TRANSFER_DST_BIT
+	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+
+	if (indices.graphicsFamily != indices.presentFamily)
+	{
+		
+		//  Images can be used across multiple queue families without explicit ownership transfers.
+		// We will be using this one for now to avoid the ownership detailed implementation.
+		createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
+		createInfo.queueFamilyIndexCount = 2;
+		uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
+		createInfo.pQueueFamilyIndices = queueFamilyIndices;
+	}
+	else
+	{
+		// An image is owned by one queue family at a time and ownership must be explicitly transferred before using it in another queue family.
+		// This option offers the best performance.
+		createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+		createInfo.queueFamilyIndexCount = 0;
+		createInfo.pQueueFamilyIndices = nullptr;
+	}
+	// We do not want a specific transform to be applied
+	createInfo.preTransform = swapchainDetails.capabilities.currentTransform;
+
+	// This is for blending between the other windows. Most of the cases we want the alpha channel to be ignored
+	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+
+	createInfo.presentMode = presentMode;
+	// We do not care about the color of the pixel that are obscured, e.g. when another window is in front.
+	// Unless we want to read pixels back, clipping should be enabled to achieve best performance.
+	createInfo.clipped = VK_TRUE;
+
+	// NULL for now. It is required e.g. in window resizing.
+	createInfo.oldSwapchain = VK_NULL_HANDLE;
+
+	if (vkCreateSwapchainKHR(device, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
+		throw std::runtime_error("failed to create swap chain!");
+	}
+
+}
+
+void Swapchain::Destroy(const VkDevice& device)
+{
+	vkDestroySwapchainKHR(device, swapChain, nullptr);
+}
+
 VkSurfaceFormatKHR Swapchain::ChooseSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
 {
 	{
@@ -27,7 +94,7 @@ VkPresentModeKHR Swapchain::ChoosePresentMode(const std::vector<VkPresentModeKHR
 	return VK_PRESENT_MODE_FIFO_KHR;
 }
 
-VkExtent2D Swapchain::ChooseExtent(const VkSurfaceCapabilitiesKHR& capabilities)
+VkExtent2D Swapchain::ChooseExtent(const VkSurfaceCapabilitiesKHR& capabilities, GLFWwindow& window)
 {
 	if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
 		return capabilities.currentExtent;
@@ -35,7 +102,7 @@ VkExtent2D Swapchain::ChooseExtent(const VkSurfaceCapabilitiesKHR& capabilities)
 	else
 	{
 		int width, height;
-		glfwGetFramebufferSize(window, &width, &height);
+		glfwGetFramebufferSize(&window, &width, &height);
 
 		VkExtent2D actualExtent =
 		{

@@ -30,8 +30,9 @@ public:
 
 	PhysicalDevice(const VkInstance& instance, VkSurfaceKHR& surface);
 	const VkPhysicalDevice GetDevice() const { return physicalDevice; }
+	QueueFamilyIndices GetFamilyIndices() { return familyIndices; }
 	QueueFamilyIndices FindQueueFamilies(const VkPhysicalDevice& device) const;
-	SwapChainSupportDetails* GetSwapChainSupportDetails() { return &swapChainSupportDetails; }
+	const SwapChainSupportDetails* GetSwapChainSupportDetails() const { return &swapChainSupportDetails; }
 
 private:
 
@@ -42,5 +43,6 @@ private:
 	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 	// TODO : maybe with shared_ptr
 	VkSurfaceKHR* surface;
+	QueueFamilyIndices familyIndices;
 	SwapChainSupportDetails swapChainSupportDetails;
 };

@@ -32,6 +32,7 @@ void Application::MainLoop()
 
 void Application::Destroy()
 {
+	m_pSwapchain->Destroy(*m_pDevice->GetDevice());
 	m_pDevice->Destroy();
 	/*m_Debugger->DestroyDebugUtilsMessengerEXT(m_pInstance->GetInstance(), m_Debugger->debugMessenger, nullptr);*/
 	m_pSurface->Destroy(m_pInstance->GetInstance());
@@ -57,5 +58,6 @@ void Application::InitVulkan()
 	
 	m_pPhysicalDevice = new PhysicalDevice(m_pInstance->GetInstance(), *m_pSurface->GetSurface());
 	m_pDevice = new Device(*m_pPhysicalDevice, debug);
+	m_pSwapchain = new Swapchain(*m_pWindow, *m_pPhysicalDevice, *m_pDevice->GetDevice()/**m_pPhysicalDevice->GetSwapChainSupportDetails()*/, *m_pSurface->GetSurface()/*, *m_pPhysicalDevice->GetFamilyIndices()*/);
 	m_pInstance->PrintSupportedExtensions();
 }
