@@ -26,6 +26,7 @@ set (SOURCE
 	source/platform/Surface.cpp
 	source/platform/windows/WindowSurface.cpp
 	source/vulkan_api/Swapchain.cpp
+	source/vulkan_api/Shader.cpp
 )
 
 set (HEADER
@@ -37,8 +38,28 @@ set (HEADER
 	source/platform/Surface.h
 	source/platform/windows/WindowSurface.h
 	source/vulkan_api/Swapchain.h
+	source/vulkan_api/Shader.h
 
 )
+
+set (SHADER
+	source/shaders/basic.vert
+	source/shaders/basic.frag
+)
+
+# Create a custom target for the shaders
+#add_custom_target(Shaders SOURCES ${SHADER_FILES})
+
+# Create a custom command to copy the shaders to the build directory
+foreach(SHADER_FILE ${SHADER_FILES})
+    get_filename_component(SHADER_FILE_NAME ${SHADER_FILE} NAME)
+    add_custom_command(
+        TARGET Shaders POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_SOURCE_DIR}/${SHADER_FILE}
+        ${CMAKE_BINARY_DIR}/${SHADER_FILE_NAME}
+    )
+endforeach()
 
 add_executable(PlasmaEngine "source/pch.h"  "source/pch.cpp" ${HEADER} ${SOURCE})
 

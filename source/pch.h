@@ -20,10 +20,11 @@
 
 // Include core headers
 #include "vulkan_api/Debugger.h"
-#include  "vulkan_api/Instance.h"
+#include "vulkan_api/Instance.h"
 #include "platform/Surface.h"
 #include "platform/windows/WindowSurface.h"
 #include "vulkan_api/PhysicalDevice.h"
 #include "vulkan_api/Device.h"
 #include "vulkan_api/Swapchain.h"
+#include "vulkan_api/Shader.h"
 #include "Application.h"
