@@ -48,20 +48,12 @@ set (SHADER
 )
 
 # Create a custom target for the shaders
-#add_custom_target(Shaders SOURCES ${SHADER_FILES})
+add_custom_target(shaders SOURCES ${SHADER})
+set_target_properties(shaders PROPERTIES FOLDER "shaders")
 
-# Create a custom command to copy the shaders to the build directory
-foreach(SHADER_FILE ${SHADER_FILES})
-    get_filename_component(SHADER_FILE_NAME ${SHADER_FILE} NAME)
-    add_custom_command(
-        TARGET Shaders POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_SOURCE_DIR}/${SHADER_FILE}
-        ${CMAKE_BINARY_DIR}/${SHADER_FILE_NAME}
-    )
-endforeach()
 
 add_executable(PlasmaEngine "source/pch.h"  "source/pch.cpp" ${HEADER} ${SOURCE})
+add_dependencies(PlasmaEngine shaders)
 
 
 set(PCH_HEADER pch.h)

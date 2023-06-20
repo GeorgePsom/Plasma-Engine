@@ -1,24 +1,21 @@
 #pragma once
 
-
-class Swapchain
+class Shader
 {
 public:
-	Swapchain(GLFWwindow& win, const PhysicalDevice& physicalDevice, const VkDevice& device,/*const SwapChainSupportDetails& swapchainDetails, */const VkSurfaceKHR& surface/* const QueueFamilyIndices& indices*/);
-	void  Destroy(const VkDevice& device);
+	Shader(const std::string& filename, const VkDevice& device);
+	VkShaderModule inline GetShaderModule() { return shaderModule; }
+	VkPipelineShaderStageCreateInfo inline GetPiplineShaderStageCI() { return pipelineShaderStageCI; }
+	
+	void Destroy(const VkDevice& device);
 private:
-	VkSurfaceFormatKHR ChooseSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
-	VkPresentModeKHR ChoosePresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
-	VkExtent2D ChooseExtent(const VkSurfaceCapabilitiesKHR& capabilities, GLFWwindow& window);
-	void CreateImageViews(const VkDevice& device);
 
-	VkSwapchainKHR swapChain;
-	std::vector<VkImage> images;
-	VkFormat imageFormat;
-	VkExtent2D extent;
-	std::vector<VkImageView> imageViews;
-	// References of objects from other classes that are required
-	/*SwapChainSupportDetails* swapChainSupportDetails;
-	QueueFamilyIndices* indices;
-	VkSurfaceKHR* surface;*/
+	// TODO create a new utils file and include IO file reading there.
+	static std::vector<char> ReadFile(const std::string& filename);
+	void CreateShaderModule(const std::vector<char>& code, const VkDevice& device);
+	void CreatePipelineShaderStageCI(VkShaderStageFlagBits type);
+	VkShaderStageFlagBits FindShaderType(const std::string& filename);
+	VkPipelineShaderStageCreateInfo pipelineShaderStageCI;
+	VkShaderModule shaderModule;
+	
 };

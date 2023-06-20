@@ -32,6 +32,8 @@ void Application::MainLoop()
 
 void Application::Destroy()
 {
+	m_pVertexShader->Destroy(*m_pDevice->GetDevice());
+	m_pFragmentShader->Destroy(*m_pDevice->GetDevice());
 	m_pSwapchain->Destroy(*m_pDevice->GetDevice());
 	m_pDevice->Destroy();
 	/*m_Debugger->DestroyDebugUtilsMessengerEXT(m_pInstance->GetInstance(), m_Debugger->debugMessenger, nullptr);*/
@@ -60,4 +62,7 @@ void Application::InitVulkan()
 	m_pDevice = new Device(*m_pPhysicalDevice, debug);
 	m_pSwapchain = new Swapchain(*m_pWindow, *m_pPhysicalDevice, *m_pDevice->GetDevice()/**m_pPhysicalDevice->GetSwapChainSupportDetails()*/, *m_pSurface->GetSurface()/*, *m_pPhysicalDevice->GetFamilyIndices()*/);
 	m_pInstance->PrintSupportedExtensions();
+
+	m_pVertexShader = new Shader("../source/shaders/basicVert.spv", *m_pDevice->GetDevice());
+	m_pFragmentShader = new Shader("../source/shaders/basicFrag.spv", *m_pDevice->GetDevice());
 }

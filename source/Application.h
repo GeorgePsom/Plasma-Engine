@@ -25,6 +25,8 @@ private:
 	PhysicalDevice* m_pPhysicalDevice;
 	Device* m_pDevice;
 	Swapchain* m_pSwapchain;
+	Shader* m_pVertexShader;
+	Shader* m_pFragmentShader;
 	bool m_debugMode;
 
 

@@ -18,6 +18,9 @@
 #include <limits> // Necessary for std::numeric_limits
 #include <algorithm> // Necessary for std::clamp
 
+#include <fstream>
+#include <map>
+
 // Include core headers
 #include "vulkan_api/Debugger.h"
 #include "vulkan_api/Instance.h"
