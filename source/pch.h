@@ -30,4 +30,6 @@
 #include "vulkan_api/Device.h"
 #include "vulkan_api/Swapchain.h"
 #include "vulkan_api/Shader.h"
+#include "vulkan_api/RenderPass.h"
+#include "vulkan_api/Pipeline.h"
 #include "Application.h"

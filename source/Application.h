@@ -27,6 +27,8 @@ private:
 	Swapchain* m_pSwapchain;
 	Shader* m_pVertexShader;
 	Shader* m_pFragmentShader;
+	Pipeline* m_pPipeline;
+	RenderPass* m_pRenderPass;
 	bool m_debugMode;
 
 

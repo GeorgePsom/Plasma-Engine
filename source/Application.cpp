@@ -32,6 +32,8 @@ void Application::MainLoop()
 
 void Application::Destroy()
 {
+	m_pPipeline->Destroy(*m_pDevice->GetDevice());
+	m_pRenderPass->Destroy(*m_pDevice->GetDevice());
 	m_pVertexShader->Destroy(*m_pDevice->GetDevice());
 	m_pFragmentShader->Destroy(*m_pDevice->GetDevice());
 	m_pSwapchain->Destroy(*m_pDevice->GetDevice());
@@ -65,4 +67,7 @@ void Application::InitVulkan()
 
 	m_pVertexShader = new Shader("../source/shaders/basicVert.spv", *m_pDevice->GetDevice());
 	m_pFragmentShader = new Shader("../source/shaders/basicFrag.spv", *m_pDevice->GetDevice());
+
+	m_pRenderPass = new RenderPass(*m_pDevice->GetDevice(), m_pSwapchain->GetFormat());
+	m_pPipeline = new Pipeline(*m_pDevice->GetDevice());
 }
