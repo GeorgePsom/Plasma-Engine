@@ -69,5 +69,6 @@ void Application::InitVulkan()
 	m_pFragmentShader = new Shader("../source/shaders/basicFrag.spv", *m_pDevice->GetDevice());
 
 	m_pRenderPass = new RenderPass(*m_pDevice->GetDevice(), m_pSwapchain->GetFormat());
-	m_pPipeline = new Pipeline(*m_pDevice->GetDevice());
+	m_pPipeline = new Pipeline(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), 
+		m_pVertexShader->GetPiplineShaderStageCI(), m_pFragmentShader->GetPiplineShaderStageCI(), m_pRenderPass->GetRenderPass());
 }

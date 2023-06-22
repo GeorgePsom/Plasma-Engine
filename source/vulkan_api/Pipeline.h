@@ -3,14 +3,17 @@
 class Pipeline
 {
 public:
-	Pipeline(const VkDevice& device);
+	Pipeline(const VkDevice& device, const VkExtent2D& extent,
+		const VkPipelineShaderStageCreateInfo& vertex, const VkPipelineShaderStageCreateInfo& fragment,
+		const VkRenderPass& renderPass);
 	void Destroy(const VkDevice& device);
 
 private:
 
 	void CreateVertexInput();
 	void CreateInputAssembly();
-	void CreateViewportScissor(float width, float height, const VkExtent2D& extent);
+	void CreateDynamicState();
+	void CreateViewportScissor(const VkExtent2D& extent);
 	void CreateRasterizer();
 	void CreateMultisampling();
 	void CreateColorBlending();
@@ -20,6 +23,7 @@ private:
 	VkPipelineInputAssemblyStateCreateInfo inputAssemblyState;
 	VkViewport viewport;
 	VkRect2D scissor;
+	VkPipelineDynamicStateCreateInfo dynamicState;
 	VkPipelineViewportStateCreateInfo viewportState;
 	VkPipelineRasterizationStateCreateInfo rasterizer;
 	VkPipelineMultisampleStateCreateInfo multisampling;
@@ -27,7 +31,13 @@ private:
 	VkPipelineColorBlendStateCreateInfo colorBlending;
 
 	VkPipelineLayout pipelineLayout;
+	VkPipeline graphicsPipeline;
+	std::vector<VkDynamicState> dynamicStates = {
+		   VK_DYNAMIC_STATE_VIEWPORT,
+		   VK_DYNAMIC_STATE_SCISSOR
+	};
 
+	
 
 
 

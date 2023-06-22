@@ -47,6 +47,9 @@ void Shader::CreatePipelineShaderStageCI(VkShaderStageFlagBits type)
 	pipelineShaderStageCI.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
 	pipelineShaderStageCI.stage = type;
 	pipelineShaderStageCI.module = shaderModule;
+	pipelineShaderStageCI.flags = 0;
+	pipelineShaderStageCI.pNext = nullptr;
+	pipelineShaderStageCI.pSpecializationInfo = nullptr;
 	pipelineShaderStageCI.pName = "main";
 }
 
