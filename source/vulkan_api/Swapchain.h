@@ -8,6 +8,7 @@ public:
 	void  Destroy(const VkDevice& device);
 	VkFormat inline GetFormat() { return imageFormat; }
 	VkExtent2D inline GetExtent() { return extent; }
+	std::vector<VkImageView> inline GetImageViews() { return imageViews; }
 private:
 	VkSurfaceFormatKHR ChooseSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 	VkPresentModeKHR ChoosePresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);

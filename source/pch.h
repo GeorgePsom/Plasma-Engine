@@ -32,4 +32,5 @@
 #include "vulkan_api/Shader.h"
 #include "vulkan_api/RenderPass.h"
 #include "vulkan_api/Pipeline.h"
+#include "vulkan_api/Framebuffer.h"
 #include "Application.h"

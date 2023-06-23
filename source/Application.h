@@ -29,6 +29,7 @@ private:
 	Shader* m_pFragmentShader;
 	Pipeline* m_pPipeline;
 	RenderPass* m_pRenderPass;
+	Framebuffer* m_pFramebuffer;
 	bool m_debugMode;
 
 

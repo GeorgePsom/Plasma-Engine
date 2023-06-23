@@ -32,6 +32,7 @@ void Application::MainLoop()
 
 void Application::Destroy()
 {
+	m_pFramebuffer->Destroy(*m_pDevice->GetDevice());
 	m_pPipeline->Destroy(*m_pDevice->GetDevice());
 	m_pRenderPass->Destroy(*m_pDevice->GetDevice());
 	m_pVertexShader->Destroy(*m_pDevice->GetDevice());
@@ -71,4 +72,5 @@ void Application::InitVulkan()
 	m_pRenderPass = new RenderPass(*m_pDevice->GetDevice(), m_pSwapchain->GetFormat());
 	m_pPipeline = new Pipeline(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), 
 		m_pVertexShader->GetPiplineShaderStageCI(), m_pFragmentShader->GetPiplineShaderStageCI(), m_pRenderPass->GetRenderPass());
+	m_pFramebuffer = new Framebuffer(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), m_pSwapchain->GetImageViews(), m_pRenderPass->GetRenderPass());
 }

@@ -29,6 +29,7 @@ set (SOURCE
 	source/vulkan_api/Shader.cpp
 	source/vulkan_api/Pipeline.cpp
 	source/vulkan_api/RenderPass.cpp
+	source/vulkan_api/Framebuffer.cpp
 )
 
 set (HEADER
@@ -43,6 +44,7 @@ set (HEADER
 	source/vulkan_api/Shader.h
 	source/vulkan_api/Pipeline.h
 	source/vulkan_api/RenderPass.h
+	source/vulkan_api/Framebuffer.h
 
 )
 
