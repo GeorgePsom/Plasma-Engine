@@ -30,6 +30,8 @@ set (SOURCE
 	source/vulkan_api/Pipeline.cpp
 	source/vulkan_api/RenderPass.cpp
 	source/vulkan_api/Framebuffer.cpp
+	source/vulkan_api/CommandPool.cpp
+	source/vulkan_api/CommandBuffer.cpp
 )
 
 set (HEADER
@@ -45,6 +47,8 @@ set (HEADER
 	source/vulkan_api/Pipeline.h
 	source/vulkan_api/RenderPass.h
 	source/vulkan_api/Framebuffer.h
+	source/vulkan_api/CommandPool.h
+	source/vulkan_api/CommandBuffer.h
 
 )
 

@@ -37,8 +37,10 @@ bool PhysicalDevice::IsDeviceSuitable(const VkPhysicalDevice& device)
 		swapChainAdequate = !swapChainSupportDetails.formats.empty() && !swapChainSupportDetails.presentModes.empty();
 	}
 
-	 
-	return indices.isComplete() && extensionsSupported && swapChainAdequate;
+	bool isDeviceValid = (indices.isComplete() && extensionsSupported && swapChainAdequate);
+	if (isDeviceValid)
+		familyIndices = indices;
+	return isDeviceValid;
 }
 
 bool PhysicalDevice::CheckDeviceExtensionSupport(const VkPhysicalDevice& device)

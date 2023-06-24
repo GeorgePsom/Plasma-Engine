@@ -30,6 +30,8 @@ private:
 	Pipeline* m_pPipeline;
 	RenderPass* m_pRenderPass;
 	Framebuffer* m_pFramebuffer;
+	CommandPool* m_pCommandPool;
+	CommandBuffer* m_pCommandBuffer;
 	bool m_debugMode;
 
 

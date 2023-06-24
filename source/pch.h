@@ -33,4 +33,6 @@
 #include "vulkan_api/RenderPass.h"
 #include "vulkan_api/Pipeline.h"
 #include "vulkan_api/Framebuffer.h"
+#include "vulkan_api/CommandPool.h"
+#include "vulkan_api/CommandBuffer.h"
 #include "Application.h"
