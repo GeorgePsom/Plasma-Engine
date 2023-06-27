@@ -7,6 +7,7 @@ public:
 		const VkPipelineShaderStageCreateInfo& vertex, const VkPipelineShaderStageCreateInfo& fragment,
 		const VkRenderPass& renderPass);
 	void Destroy(const VkDevice& device);
+	VkPipeline inline GetPipeline() { return graphicsPipeline; }
 
 private:
 

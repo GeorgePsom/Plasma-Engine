@@ -77,6 +77,19 @@ void Swapchain::Destroy(const VkDevice& device)
 	vkDestroySwapchainKHR(device, swapChain, nullptr);
 }
 
+bool Swapchain::GetNextImageIndex(const VkDevice& device, const VkSemaphore& semaphore, uint32_t& imageIndex)
+{
+	
+	VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, semaphore, VK_NULL_HANDLE, &imageIndex);
+	if (result == VK_ERROR_OUT_OF_DATE_KHR)
+	{
+		return false;
+	}
+	else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
+		throw std::runtime_error("Failed to get next swapchain's image index");
+	return true;
+}
+
 VkSurfaceFormatKHR Swapchain::ChooseSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
 {
 	{

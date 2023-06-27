@@ -7,6 +7,10 @@ public:
 	~Device() { Destroy(); }
 	void Destroy() { vkDestroyDevice(device, nullptr); }
 	const VkDevice* GetDevice() const{ return &device; }
+	VkQueue inline GetGraphicsQueue() { return graphicsQueue; }
+	VkQueue inline GetPresentQueue() { return presentQueue;}
+	
+
 private:
 
 	VkDevice device;

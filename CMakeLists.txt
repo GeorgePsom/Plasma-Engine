@@ -32,6 +32,9 @@ set (SOURCE
 	source/vulkan_api/Framebuffer.cpp
 	source/vulkan_api/CommandPool.cpp
 	source/vulkan_api/CommandBuffer.cpp
+	source/vulkan_api/synchronization/Semaphore.cpp
+	source/vulkan_api/synchronization/Fence.cpp
+	source/vulkan_api/synchronization/Presenter.cpp
 )
 
 set (HEADER
@@ -49,6 +52,9 @@ set (HEADER
 	source/vulkan_api/Framebuffer.h
 	source/vulkan_api/CommandPool.h
 	source/vulkan_api/CommandBuffer.h
+	source/vulkan_api/synchronization/Semaphore.h
+	source/vulkan_api/synchronization/Fence.h
+	source/vulkan_api/synchronization/Presenter.h
 
 )
 

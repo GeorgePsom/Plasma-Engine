@@ -35,4 +35,8 @@
 #include "vulkan_api/Framebuffer.h"
 #include "vulkan_api/CommandPool.h"
 #include "vulkan_api/CommandBuffer.h"
+
+#include "vulkan_api/synchronization/Fence.h"
+#include "vulkan_api/synchronization/Semaphore.h"
+#include "vulkan_api/synchronization/Presenter.h"
 #include "Application.h"
