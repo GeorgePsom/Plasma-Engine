@@ -66,3 +66,4 @@ void CommandBuffer::Reset(int index)
 {
 	vkResetCommandBuffer(commandBuffers[index], 0);
 }
+

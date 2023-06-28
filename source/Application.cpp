@@ -144,8 +144,8 @@ void Application::InitVulkan()
 	m_pPipeline = new Pipeline(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), 
 		m_pVertexShader->GetPiplineShaderStageCI(), m_pFragmentShader->GetPiplineShaderStageCI(), m_pRenderPass->GetRenderPass());
 	m_pFramebuffer = new Framebuffer(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), m_pSwapchain->GetImageViews(), m_pRenderPass->GetRenderPass());
-	m_pVertexBuffer = new VertexBuffer(m_pPhysicalDevice->GetDevice(), *m_pDevice->GetDevice());
 	m_pCommandPool = new CommandPool(*m_pDevice->GetDevice(), m_pPhysicalDevice->GetFamilyIndices().graphicsFamily.value());
+	m_pVertexBuffer = new VertexBuffer(m_pPhysicalDevice->GetDevice(), *m_pDevice->GetDevice(), m_pDevice->GetGraphicsQueue(), m_pCommandPool->GetCommandPool());
 	m_pCommandBuffer = new CommandBuffer(*m_pDevice->GetDevice(), m_pCommandPool->GetCommandPool(), FRAMES);
 	m_pRenderSemaphore = new Semaphore(*m_pDevice->GetDevice(), FRAMES);
 	m_pPresentSemaphore = new Semaphore(*m_pDevice->GetDevice(), FRAMES);
