@@ -13,9 +13,11 @@ Pipeline::Pipeline(const VkDevice& device, const VkExtent2D& extent,
 
 	if (vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
 		throw std::runtime_error("Failed to create pipeline layout");
+	
+	auto attributeDescriptions = Vertex::GetAttributeDescritpions();
+	auto bindingDescription = Vertex::GetBindingDescription();
 
-
-	CreateVertexInput();
+	CreateVertexInput(bindingDescription, attributeDescriptions);
 	CreateInputAssembly();
 	CreateDynamicState();
 	CreateViewportScissor(extent);
@@ -26,7 +28,30 @@ Pipeline::Pipeline(const VkDevice& device, const VkExtent2D& extent,
 	VkPipelineShaderStageCreateInfo stages[]{ vertex, fragment };
 
 	VkGraphicsPipelineCreateInfo pipelineInfo{};
+	/*VkVertexInputBindingDescription bindingDescription{};
+	bindingDescription.binding = 0;
+	bindingDescription.stride = sizeof(Vertex);
+	bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+	std::array<VkVertexInputAttributeDescription, 2> attributeDescriptions{};
 
+	attributeDescriptions[0].binding = 0;
+	attributeDescriptions[0].location = 0;
+	attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+	attributeDescriptions[0].offset = offsetof(Vertex, pos);
+
+	attributeDescriptions[1].binding = 0;
+	attributeDescriptions[1].location = 1;
+	attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+	attributeDescriptions[1].offset = offsetof(Vertex, color);*/
+
+	/*auto attributeDescriptions = Vertex::GetAttributeDescritpions();
+	auto bindingDescription = Vertex::GetBindingDescription();
+	vertexInputState = {};
+	vertexInputState.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+	vertexInputState.vertexBindingDescriptionCount = 1;
+	vertexInputState.pVertexBindingDescriptions = &bindingDescription;
+	vertexInputState.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
+	vertexInputState.pVertexAttributeDescriptions = attributeDescriptions.data();*/
 	
 
 	pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -58,15 +83,45 @@ void Pipeline::Destroy(const VkDevice& device)
 	vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
 }
 
-void Pipeline::CreateVertexInput()
+void Pipeline::CreateVertexInput(const VkVertexInputBindingDescription& bindingDescription,
+	const std::array<VkVertexInputAttributeDescription, 2 >& attributeDescriptions)
 {
+
+	/*auto attributeDescriptions = Vertex::GetAttributeDescritpions();
+	auto bindingDescription = Vertex::GetBindingDescription();*/
+	vertexInputState = {};
 	vertexInputState.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-	vertexInputState.vertexBindingDescriptionCount = 0;
-	vertexInputState.pVertexBindingDescriptions = nullptr;
-	vertexInputState.vertexAttributeDescriptionCount = 0;
-	vertexInputState.pVertexAttributeDescriptions = nullptr;
-	vertexInputState.flags = 0;
-	vertexInputState.pNext = nullptr;
+	vertexInputState.vertexBindingDescriptionCount = 1;
+	vertexInputState.pVertexBindingDescriptions = &bindingDescription;
+	vertexInputState.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
+	vertexInputState.pVertexAttributeDescriptions = attributeDescriptions.data();
+	
+//	//auto bindingDescription = Vertex::GetBindingDescription();
+//	VkVertexInputBindingDescription bindingDescription{};
+//	bindingDescription.binding = 0;
+//	bindingDescription.stride = sizeof(Vertex);
+//	bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+//	std::array<VkVertexInputAttributeDescription, 2> attributeDescriptions{};
+//
+//	attributeDescriptions[0].binding = 0;
+//	attributeDescriptions[0].location = 0;
+//	attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+//	attributeDescriptions[0].offset = offsetof(Vertex, pos);
+//
+//	attributeDescriptions[1].binding = 0;
+//	attributeDescriptions[1].location = 1;
+//	attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+//	attributeDescriptions[1].offset = offsetof(Vertex, color);
+
+	//auto attributeDescriptions = Vertex::GetAttributeDescritpions();
+	/*vertexInputState = {};
+	vertexInputState.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+	vertexInputState.vertexBindingDescriptionCount = 1;
+	vertexInputState.pVertexBindingDescriptions = &bindingDescription;
+	vertexInputState.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
+	vertexInputState.pVertexAttributeDescriptions = attributeDescriptions.data();*/
+	/*vertexInputState.flags = 0;
+	vertexInputState.pNext = nullptr;*/
 }
 
 void Pipeline::CreateInputAssembly()

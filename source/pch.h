@@ -11,7 +11,12 @@
 	#define GLFW_EXPOSE_NATIVE_WIN32
 	#include <GLFW/glfw3native.h>
 #endif
+
+#include <glm/glm.hpp>
+
+
 #include <vector>
+#include <array>
 #include <optional>
 #include <set>
 #include <cstdint> // Necessary for uint32_t
@@ -30,13 +35,18 @@
 #include "vulkan_api/Device.h"
 #include "vulkan_api/Swapchain.h"
 #include "vulkan_api/Shader.h"
+#include "vulkan_api/Vertex.h"
 #include "vulkan_api/RenderPass.h"
 #include "vulkan_api/Pipeline.h"
 #include "vulkan_api/Framebuffer.h"
+
+#include "vulkan_api/VertexBuffer.h"
+
 #include "vulkan_api/CommandPool.h"
 #include "vulkan_api/CommandBuffer.h"
 
 #include "vulkan_api/synchronization/Fence.h"
 #include "vulkan_api/synchronization/Semaphore.h"
 #include "vulkan_api/synchronization/Presenter.h"
+
 #include "Application.h"

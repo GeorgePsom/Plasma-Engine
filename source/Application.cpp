@@ -25,7 +25,8 @@ void Application::DrawFrame()
 	
 	m_pFence->Reset(*m_pDevice->GetDevice(), currentFrame);
 
-	m_pCommandBuffer->Record(m_pFramebuffer->GetFramebuffer(imageIndex), m_pRenderPass->GetRenderPass(), m_pSwapchain->GetExtent(), m_pPipeline->GetPipeline(), currentFrame);
+	m_pCommandBuffer->Record(m_pFramebuffer->GetFramebuffer(imageIndex), m_pRenderPass->GetRenderPass(),
+		m_pSwapchain->GetExtent(), *m_pVertexBuffer,  m_pPipeline->GetPipeline(), currentFrame);
 	
 	Presenter::Submit(m_pCommandBuffer->GetCommandBuffer(currentFrame),
 		m_pRenderSemaphore->GetSemaphore(currentFrame), m_pPresentSemaphore->GetSemaphore(currentFrame), m_pFence->GetFence(currentFrame), m_pDevice->GetGraphicsQueue());
@@ -72,6 +73,7 @@ void Application::Destroy()
 	m_pPresentSemaphore->Destroy(*m_pDevice->GetDevice());
 	m_pFence->Destroy(*m_pDevice->GetDevice());
 	m_pCommandPool->Destroy(*m_pDevice->GetDevice());
+	m_pVertexBuffer->Destroy(*m_pDevice->GetDevice());
 	m_pFramebuffer->Destroy(*m_pDevice->GetDevice());
 	m_pPipeline->Destroy(*m_pDevice->GetDevice());
 	m_pRenderPass->Destroy(*m_pDevice->GetDevice());
@@ -142,6 +144,7 @@ void Application::InitVulkan()
 	m_pPipeline = new Pipeline(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), 
 		m_pVertexShader->GetPiplineShaderStageCI(), m_pFragmentShader->GetPiplineShaderStageCI(), m_pRenderPass->GetRenderPass());
 	m_pFramebuffer = new Framebuffer(*m_pDevice->GetDevice(), m_pSwapchain->GetExtent(), m_pSwapchain->GetImageViews(), m_pRenderPass->GetRenderPass());
+	m_pVertexBuffer = new VertexBuffer(m_pPhysicalDevice->GetDevice(), *m_pDevice->GetDevice());
 	m_pCommandPool = new CommandPool(*m_pDevice->GetDevice(), m_pPhysicalDevice->GetFamilyIndices().graphicsFamily.value());
 	m_pCommandBuffer = new CommandBuffer(*m_pDevice->GetDevice(), m_pCommandPool->GetCommandPool(), FRAMES);
 	m_pRenderSemaphore = new Semaphore(*m_pDevice->GetDevice(), FRAMES);

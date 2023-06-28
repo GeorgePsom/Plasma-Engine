@@ -35,6 +35,8 @@ set (SOURCE
 	source/vulkan_api/synchronization/Semaphore.cpp
 	source/vulkan_api/synchronization/Fence.cpp
 	source/vulkan_api/synchronization/Presenter.cpp
+	source/vulkan_api/Vertex.cpp
+	source/vulkan_api/VertexBuffer.cpp
 )
 
 set (HEADER
@@ -55,6 +57,8 @@ set (HEADER
 	source/vulkan_api/synchronization/Semaphore.h
 	source/vulkan_api/synchronization/Fence.h
 	source/vulkan_api/synchronization/Presenter.h
+	source/vulkan_api/Vertex.h
+	source/vulkan_api/VertexBuffer.h
 
 )
 

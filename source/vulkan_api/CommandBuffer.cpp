@@ -13,7 +13,8 @@ CommandBuffer::CommandBuffer(const VkDevice& device, const VkCommandPool& comman
 		throw std::runtime_error("Failed to allocate command buffers");
 }
 
-void CommandBuffer::Record(const VkFramebuffer& frameBuffer, const VkRenderPass& renderPass, const VkExtent2D& extent, const VkPipeline& pipeline, int index)
+void CommandBuffer::Record(const VkFramebuffer& frameBuffer, const VkRenderPass& renderPass,
+	const VkExtent2D& extent, const VertexBuffer& vb, const VkPipeline& pipeline, int index)
 {
 	Reset(index);
 	VkCommandBufferBeginInfo beginInfo{};
@@ -51,6 +52,7 @@ void CommandBuffer::Record(const VkFramebuffer& frameBuffer, const VkRenderPass&
 	scissor.offset = { 0, 0 };
 	vkCmdSetScissor(commandBuffers[index], 0, 1, &scissor);
 
+	vb.Bind(commandBuffers[index]);
 	vkCmdDraw(commandBuffers[index], 3, 1, 0, 0);
 
 	vkCmdEndRenderPass(commandBuffers[index]);

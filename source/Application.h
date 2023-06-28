@@ -47,6 +47,8 @@ private:
 
 	bool m_bFrameBufferResized;
 
+	VertexBuffer* m_pVertexBuffer;
+
 
 
 };
