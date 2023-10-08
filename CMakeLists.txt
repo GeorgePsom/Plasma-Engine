@@ -18,62 +18,62 @@ include_directories(source)
 link_directories(${VULKAN_SDK_PATH}/Lib)
 set (SOURCE
 	source/main.cpp
-	source/Application.cpp
-	source/vulkan_api/Instance.cpp
-	source/vulkan_api/Debugger.cpp
-	source/vulkan_api/PhysicalDevice.cpp
-	source/vulkan_api/Device.cpp
-	source/platform/Surface.cpp
-	source/platform/windows/WindowSurface.cpp
-	source/vulkan_api/Swapchain.cpp
-	source/vulkan_api/Shader.cpp
-	source/vulkan_api/Pipeline.cpp
-	source/vulkan_api/RenderPass.cpp
-	source/vulkan_api/Framebuffer.cpp
-	source/vulkan_api/CommandPool.cpp
-	source/vulkan_api/CommandBuffer.cpp
-	source/vulkan_api/synchronization/Semaphore.cpp
-	source/vulkan_api/synchronization/Fence.cpp
-	source/vulkan_api/synchronization/Presenter.cpp
-	source/vulkan_api/Vertex.cpp
-	source/vulkan_api/VertexBuffer.cpp
+	#source/Application.cpp
+	#source/vulkan_api/Instance.cpp
+	#source/vulkan_api/Debugger.cpp
+	#source/vulkan_api/PhysicalDevice.cpp
+	#source/vulkan_api/Device.cpp
+	#source/platform/Surface.cpp
+	#source/platform/windows/WindowSurface.cpp
+	#source/vulkan_api/Swapchain.cpp
+	#source/vulkan_api/Shader.cpp
+	#source/vulkan_api/Pipeline.cpp
+	#source/vulkan_api/RenderPass.cpp
+	#source/vulkan_api/Framebuffer.cpp
+	#source/vulkan_api/CommandPool.cpp
+	#source/vulkan_api/CommandBuffer.cpp
+	#source/vulkan_api/synchronization/Semaphore.cpp
+	#source/vulkan_api/synchronization/Fence.cpp
+	#source/vulkan_api/synchronization/Presenter.cpp
+	#source/vulkan_api/Vertex.cpp
+	#source/vulkan_api/VertexBuffer.cpp
 )
 
 set (HEADER
-	source/Application.h
-	source/vulkan_api/Instance.h
-	source/vulkan_api/Debugger.h
-	source/vulkan_api/PhysicalDevice.h
-	source/vulkan_api/Device.h
-	source/platform/Surface.h
-	source/platform/windows/WindowSurface.h
-	source/vulkan_api/Swapchain.h
-	source/vulkan_api/Shader.h
-	source/vulkan_api/Pipeline.h
-	source/vulkan_api/RenderPass.h
-	source/vulkan_api/Framebuffer.h
-	source/vulkan_api/CommandPool.h
-	source/vulkan_api/CommandBuffer.h
-	source/vulkan_api/synchronization/Semaphore.h
-	source/vulkan_api/synchronization/Fence.h
-	source/vulkan_api/synchronization/Presenter.h
-	source/vulkan_api/Vertex.h
-	source/vulkan_api/VertexBuffer.h
+	#source/Application.h
+	#source/vulkan_api/Instance.h
+	#source/vulkan_api/Debugger.h
+	#source/vulkan_api/PhysicalDevice.h
+	#source/vulkan_api/Device.h
+	#source/platform/Surface.h
+	#source/platform/windows/WindowSurface.h
+	#source/vulkan_api/Swapchain.h
+	#source/vulkan_api/Shader.h
+	#source/vulkan_api/Pipeline.h
+	#source/vulkan_api/RenderPass.h
+	#source/vulkan_api/Framebuffer.h
+	#source/vulkan_api/CommandPool.h
+	#source/vulkan_api/CommandBuffer.h
+	#source/vulkan_api/synchronization/Semaphore.h
+	#source/vulkan_api/synchronization/Fence.h
+	#source/vulkan_api/synchronization/Presenter.h
+	#source/vulkan_api/Vertex.h
+	#source/vulkan_api/VertexBuffer.h
 
 )
 
-set (SHADER
-	source/shaders/basic.vert
-	source/shaders/basic.frag
-)
+#set (SHADER
+#	source/shaders/basic.vert
+#	source/shaders/basic.frag
+#)
 
 # Create a custom target for the shaders
-add_custom_target(shaders SOURCES ${SHADER})
-set_target_properties(shaders PROPERTIES FOLDER "shaders")
+#add_custom_target(shaders SOURCES ${SHADER})
+#set_target_properties(shaders PROPERTIES FOLDER "shaders")
 
 
 add_executable(PlasmaEngine "source/pch.h"  "source/pch.cpp" ${HEADER} ${SOURCE})
-add_dependencies(PlasmaEngine shaders)
+#add_dependencies(PlasmaEngine shaders)
 
 
 set(PCH_HEADER pch.h)
