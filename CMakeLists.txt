@@ -18,6 +18,12 @@ include_directories(source)
 link_directories(${VULKAN_SDK_PATH}/Lib)
 set (SOURCE
 	source/main.cpp
+	source/core/VulkanSwapChain.cpp
+	source/core/UIOverlay.cpp
+	source/core/VulkanDevice.cpp
+	source/core/VulkanDebug.cpp
+	source/core/Sample.cpp
+	source/core/VulkanTools.cpp
 	#source/Application.cpp
 	#source/vulkan_api/Instance.cpp
 	#source/vulkan_api/Debugger.cpp
@@ -37,9 +43,18 @@ set (SOURCE
 	#source/vulkan_api/synchronization/Presenter.cpp
 	#source/vulkan_api/Vertex.cpp
 	#source/vulkan_api/VertexBuffer.cpp
-)
+  )
 
 set (HEADER
+	source/core/Sample.h
+	source/core/VulkanDevice.h
+	source/core/UIOverlay.h
+	source/core/VulkanDebug.h
+	source/core/Camera.hpp
+	source/core/VulkanSwapChain.h
+	source/core/CommandLineParser.hpp
+	source/core/Benchmark.hpp
+	source/core/VulkanTools.h
 	#source/Application.h
 	#source/vulkan_api/Instance.h
 	#source/vulkan_api/Debugger.h
@@ -60,7 +75,7 @@ set (HEADER
 	#source/vulkan_api/Vertex.h
 	#source/vulkan_api/VertexBuffer.h
 
-)
+  )
 
 #set (SHADER
 #	source/shaders/basic.vert
